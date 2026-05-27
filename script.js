@@ -40,13 +40,13 @@ function initStars() {
   const canvas = document.getElementById('stars-canvas');
   const ctx = canvas.getContext('2d');
   let W, H, stars = [];
-
+ 
   function resize() {
     W = canvas.width  = window.innerWidth;
     H = canvas.height = window.innerHeight;
     buildStars();
   }
-
+ 
   function buildStars() {
     stars = [];
     const count = Math.floor((W * H) / 1600);
@@ -61,7 +61,7 @@ function initStars() {
       });
     }
   }
-
+ 
   function draw(t) {
     ctx.clearRect(0, 0, W, H);
     for (const s of stars) {
@@ -73,11 +73,46 @@ function initStars() {
     }
     requestAnimationFrame(draw);
   }
-
+ 
+  // Estrellas fugaces
+  function shootingStar() {
+    const x1 = Math.random() * W * 0.8;
+    const y1 = Math.random() * H * 0.4;
+    const len = 80 + Math.random() * 120;
+    const angle = 25 + Math.random() * 20; // grados, diagonal suave
+    const rad = angle * Math.PI / 180;
+    const x2 = x1 + Math.cos(rad) * len;
+    const y2 = y1 + Math.sin(rad) * len;
+    let progress = 0;
+    const speed = 0.018 + Math.random() * 0.012;
+ 
+    function animate() {
+      progress += speed;
+      if (progress > 1) return;
+      ctx.beginPath();
+      const grad = ctx.createLinearGradient(x1, y1, x2, y2);
+      const head = Math.min(progress + 0.12, 1);
+      grad.addColorStop(Math.max(0, progress - 0.05), 'rgba(255,255,255,0)');
+      grad.addColorStop(progress, 'rgba(255,255,255,0.55)');
+      grad.addColorStop(head, 'rgba(255,255,255,0)');
+      ctx.strokeStyle = grad;
+      ctx.lineWidth = 0.8;
+      ctx.moveTo(x1, y1);
+      ctx.lineTo(x2, y2);
+      ctx.stroke();
+      requestAnimationFrame(animate);
+    }
+    animate();
+    // próxima estrella fugaz en 4–10 segundos
+    setTimeout(shootingStar, 4000 + Math.random() * 6000);
+  }
+  setTimeout(shootingStar, 2000 + Math.random() * 3000);
+ 
   window.addEventListener('resize', resize);
   resize();
   requestAnimationFrame(draw);
 }
+
 
 // =============================================
 // SVG DE UN PÉTALO STARGAZER

@@ -11,7 +11,7 @@ flores-para-abi/
 ├── index.html      ← página principal
 ├── style.css       ← estilos y animaciones
 ├── script.js       ← lógica (estrellas, lirios, karaoke, audio)
-├── saturno.mp3     ← 🔴 AGREGAR MANUALMENTE (ver abajo)
+├── song.mp3     ← 🔴 AGREGAR MANUALMENTE (ver abajo)
 └── README.md
 ```
 
@@ -20,7 +20,7 @@ flores-para-abi/
 ## Pasos para publicar en GitHub Pages
 
 1. **Creá un repositorio** en GitHub (público).
-2. **Subí todos los archivos**, incluyendo `saturno.mp3`.
+2. **Subí todos los archivos**, incluyendo `song.mp3`.
 3. Andá a **Settings → Pages**.
 4. En *Source*, elegí `main` / `root` y guardá.
 5. En unos segundos tenés tu link: `https://tu-usuario.github.io/nombre-del-repo/`
@@ -29,16 +29,16 @@ flores-para-abi/
 
 ## Agregar la canción
 
-- Conseguí el archivo `saturno.mp3` (Pablo Alborán).
-- Renombralo exactamente `saturno.mp3`.
+- Conseguí el archivo `song.mp3` (Pablo Alborán).
+- Renombralo exactamente `song.mp3`.
 - Ponelo en la misma carpeta que `index.html`.
 - Subilo al repositorio junto con los demás archivos.
 
 > Si la canción tiene otro nombre de archivo, abrí `index.html` y buscá la línea:
 > ```html
-> <source src="saturno.mp3" type="audio/mpeg" />
+> <source src="song.mp3" type="audio/mpeg" />
 > ```
-> Cambiá `saturno.mp3` por el nombre real de tu archivo.
+> Cambiá `song.mp3` por el nombre real de tu archivo.
 
 ---
 
