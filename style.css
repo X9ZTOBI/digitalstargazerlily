@@ -1,0 +1,167 @@
+/* =============================================
+   VARIABLES & RESET
+   ============================================= */
+:root {
+  --night:       #050810;
+  --lyric-color: #f5dde4;
+  --lyric-glow:  rgba(210, 60, 90, 0.4);
+  --welcome-bg:  #fafaf8;
+  --font-display:'Cormorant Garamond', serif;
+  --font-body:   'Lato', sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 100%; height: 100%; overflow: hidden; }
+
+/* =============================================
+   BIENVENIDA
+   ============================================= */
+#welcome-screen {
+  position: fixed; inset: 0;
+  background: var(--welcome-bg);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 100;
+  transition: opacity 1.4s ease, transform 1.4s ease;
+}
+#welcome-screen.fade-out { opacity: 0; transform: scale(1.03); pointer-events: none; }
+.welcome-content { text-align: center; animation: welcomeIn 1.2s ease both; }
+@keyframes welcomeIn {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.welcome-para {
+  font-family: var(--font-display);
+  font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+  font-weight: 300; font-style: italic;
+  color: #888; letter-spacing: 0.06em; margin-bottom: 0.3rem;
+}
+.welcome-name {
+  font-family: var(--font-display);
+  font-size: clamp(4rem, 14vw, 9rem);
+  font-weight: 300; color: #1a1a1a;
+  letter-spacing: -0.02em; line-height: 1;
+  margin-bottom: 2.8rem;
+}
+#btn-ver {
+  display: inline-flex; align-items: center; gap: 0.6rem;
+  background: none; border: 1px solid #c0bbb4;
+  color: #555; font-family: var(--font-body);
+  font-size: 0.78rem; font-weight: 300;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  padding: 0.85rem 2rem; cursor: pointer;
+  transition: all 0.35s ease;
+}
+#btn-ver svg { width: 14px; height: 14px; transition: transform 0.35s ease; }
+#btn-ver:hover { border-color: #888; color: #222; background: #f0eeeb; }
+#btn-ver:hover svg { transform: translateX(4px); }
+
+/* =============================================
+   PANTALLA DE FLORES
+   ============================================= */
+#flower-screen {
+  position: fixed; inset: 0;
+  background: var(--night);
+  overflow: hidden; opacity: 0;
+  transition: opacity 1.6s ease 0.5s;
+}
+#flower-screen.visible { opacity: 1; }
+
+#stars-canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+/* =============================================
+   RAMO
+   ============================================= */
+#bouquet {
+  position: absolute; bottom: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 700px; height: 100vh;
+  pointer-events: none;
+}
+
+/* =============================================
+   LIRIO — crecimiento + balanceo
+   ============================================= */
+.lily {
+  position: absolute; bottom: 0;
+  transform-origin: bottom center;
+  opacity: 0;
+}
+
+/* Fase 1: crecimiento */
+.lily.bloom {
+  animation:
+    lilyGrow var(--grow-dur, 3.4s) var(--grow-delay, 0s)
+      cubic-bezier(0.22, 0.61, 0.36, 1) forwards,
+    lilySway var(--sway-dur, 3.8s) calc(var(--grow-delay, 0s) + var(--grow-dur, 3.4s) + var(--sway-delay, 0s))
+      ease-in-out infinite;
+}
+
+@keyframes lilyGrow {
+  0%   { opacity: 0; transform: translateX(-50%) rotate(var(--lean, 0deg)) scaleY(0.02); }
+  10%  { opacity: 1; }
+  100% { opacity: 1; transform: translateX(-50%) rotate(var(--lean, 0deg)) scaleY(1); }
+}
+
+/* Balanceo suave como en el viento */
+@keyframes lilySway {
+  0%   { transform: translateX(-50%) rotate(var(--lean, 0deg)); }
+  25%  { transform: translateX(-50%) rotate(calc(var(--lean, 0deg) - var(--sway-amp, 2.5deg))); }
+  50%  { transform: translateX(-50%) rotate(var(--lean, 0deg)); }
+  75%  { transform: translateX(-50%) rotate(calc(var(--lean, 0deg) + var(--sway-amp, 2.5deg))); }
+  100% { transform: translateX(-50%) rotate(var(--lean, 0deg)); }
+}
+
+/* Apertura de pétalos */
+@keyframes petalOpen {
+  0%   { opacity: 0; transform: rotate(var(--rot, 0deg)) scale(0.04); }
+  25%  { opacity: 0.8; }
+  100% { opacity: 1;   transform: rotate(var(--rot, 0deg)) scale(1); }
+}
+
+/* Aparición de estambres */
+@keyframes stamenFade {
+  0%   { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+/* =============================================
+   LETRA / KARAOKE
+   ============================================= */
+#lyrics-container {
+  position: fixed; bottom: 2.5rem; left: 50%;
+  transform: translateX(-50%);
+  text-align: center; width: 90%; max-width: 540px;
+  pointer-events: none; z-index: 10; min-height: 3rem;
+}
+.lyric-line {
+  position: absolute; width: 100%; left: 0; bottom: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.1rem, 3.5vw, 1.55rem);
+  font-weight: 300; font-style: italic;
+  color: var(--lyric-color); letter-spacing: 0.04em;
+  opacity: 0; transform: translateY(10px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+  text-shadow: 0 0 24px var(--lyric-glow), 0 0 50px rgba(200,50,70,0.1);
+}
+.lyric-line.active { opacity: 1; transform: translateY(0); }
+
+/* =============================================
+   BOTÓN AUDIO
+   ============================================= */
+#audio-btn {
+  position: fixed; top: 1.4rem; right: 1.6rem;
+  width: 38px; height: 38px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 50%; color: rgba(255,255,255,0.55);
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  z-index: 20; transition: background 0.3s, color 0.3s;
+}
+#audio-btn svg { width: 16px; height: 16px; }
+#audio-btn:hover { background: rgba(255,255,255,0.12); color: rgba(255,255,255,0.9); }
+
+/* =============================================
+   RESPONSIVE
+   ============================================= */
+@media (max-width: 650px) {
+  #bouquet { width: 100vw; }
+}

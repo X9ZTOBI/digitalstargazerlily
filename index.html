@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Para Abi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Lato:wght@300;400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ===================================================
+       PANTALLA DE BIENVENIDA
+       Para cambiar el nombre "Abi", buscá en este archivo
+       el texto "Abi" y reemplazalo por el nombre que quieras.
+       También podés cambiar el subtítulo debajo del botón.
+       =================================================== -->
+
+  <div id="welcome-screen">
+    <div class="welcome-content">
+      <p class="welcome-para">este detalle es para ti,</p>
+      <h1 class="welcome-name">Abi</h1>
+      <button id="btn-ver" onclick="comenzar()">
+        <span>click para ver</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+          <path d="M5 12h14M13 6l6 6-6 6"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- ===================================================
+       PANTALLA DE FLORES
+       =================================================== -->
+
+  <div id="flower-screen">
+    <canvas id="stars-canvas"></canvas>
+
+    <div id="bouquet">
+      <!-- Los lirios se generan desde script.js -->
+    </div>
+
+    <!-- Letra de la canción (karaoke) -->
+    <!-- ===================================================
+         LETRA DE LA CANCIÓN
+         Cada <div class="lyric-line"> es una línea.
+         El atributo data-time indica en qué segundo aparece.
+         Ajustá los tiempos según tu archivo de audio.
+         =================================================== -->
+    <div id="lyrics-container">
+      <div class="lyric-line" data-time="0">♪ Saturno — Pablo Alborán ♪</div>
+      <div class="lyric-line" data-time="18">Hay una estrella que nos lleva</div>
+      <div class="lyric-line" data-time="22">a ese planeta que nos mueve</div>
+      <div class="lyric-line" data-time="26">donde el tiempo es diferente</div>
+      <div class="lyric-line" data-time="30">y el amor no tiene prisa</div>
+      <div class="lyric-line" data-time="35">Orbita lento, orbita fuerte</div>
+      <div class="lyric-line" data-time="39">cada anillo cuenta algo</div>
+      <div class="lyric-line" data-time="43">y en tu piel yo reconozco</div>
+      <div class="lyric-line" data-time="47">la galaxia que me falta</div>
+      <div class="lyric-line" data-time="54">Saturno, dime que es verdad</div>
+      <div class="lyric-line" data-time="58">que en el universo hay lugar</div>
+      <div class="lyric-line" data-time="62">para los dos, para este amor</div>
+      <div class="lyric-line" data-time="66">que gira alrededor de ti</div>
+      <div class="lyric-line" data-time="72">Saturno, llueve desde acá</div>
+      <div class="lyric-line" data-time="76">y en tu nombre voy a escribir</div>
+      <div class="lyric-line" data-time="80">con luz de estrellas lo que soy</div>
+      <div class="lyric-line" data-time="84">cuando estoy junto a ti</div>
+      <div class="lyric-line" data-time="92">Y aunque el tiempo nos separe</div>
+      <div class="lyric-line" data-time="96">como planetas en su órbita</div>
+      <div class="lyric-line" data-time="100">siempre habrá en este silencio</div>
+      <div class="lyric-line" data-time="104">un eco tuyo que me nombra</div>
+      <div class="lyric-line" data-time="110">Saturno, dime que es verdad</div>
+      <div class="lyric-line" data-time="114">que en el universo hay lugar</div>
+      <div class="lyric-line" data-time="118">para los dos, para este amor</div>
+      <div class="lyric-line" data-time="122">que gira alrededor de ti</div>
+      <div class="lyric-line" data-time="128">Saturno, llueve desde acá</div>
+      <div class="lyric-line" data-time="132">y en tu nombre voy a escribir</div>
+      <div class="lyric-line" data-time="136">con luz de estrellas lo que soy</div>
+      <div class="lyric-line" data-time="140">cuando estoy junto a ti</div>
+      <div class="lyric-line" data-time="152">♪</div>
+    </div>
+
+    <!-- Reproductor de audio -->
+    <!-- IMPORTANTE: poné tu archivo de audio con el nombre "saturno.mp3"
+         en la misma carpeta que este index.html, o cambiá la ruta aquí abajo -->
+    <audio id="audio" preload="auto">
+      <source src="saturno.mp3" type="audio/mpeg" />
+    </audio>
+
+    <!-- Botón de audio -->
+    <button id="audio-btn" onclick="toggleAudio()">
+      <svg id="icon-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+      <svg id="icon-pause" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+    </button>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
