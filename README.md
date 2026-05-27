@@ -1,82 +1,76 @@
 # 🌸 Flores para Abi
 
-Un regalo digital: lirios animados sobre un cielo nocturno estrellado, con la letra de *Saturno* de Pablo Alborán sincronizada como karaoke.
+Regalo digital: lirios Stargazer animados sobre un cielo nocturno estrellado, con karaoke sincronizado y estrellas fugaces.
 
 ---
 
-## Estructura del proyecto
+## Estructura
 
 ```
 flores-para-abi/
-├── index.html      ← página principal
-├── style.css       ← estilos y animaciones
-├── script.js       ← lógica (estrellas, lirios, karaoke, audio)
-├── song.mp3     ← 🔴 AGREGAR MANUALMENTE (ver abajo)
+├── index.html
+├── style.css
+├── script.js
+├── song.mp3        ← agregar manualmente
 └── README.md
 ```
 
 ---
 
-## Pasos para publicar en GitHub Pages
+## Publicar en GitHub Pages
 
-1. **Creá un repositorio** en GitHub (público).
-2. **Subí todos los archivos**, incluyendo `song.mp3`.
-3. Andá a **Settings → Pages**.
-4. En *Source*, elegí `main` / `root` y guardá.
-5. En unos segundos tenés tu link: `https://tu-usuario.github.io/nombre-del-repo/`
+1. Crear repositorio público en GitHub
+2. Subir todos los archivos incluyendo `song.mp3`
+3. Settings → Pages → Source: `main / root`
+4. Link disponible en: `https://tu-usuario.github.io/nombre-del-repo/`
 
 ---
 
 ## Agregar la canción
 
-- Conseguí el archivo `song.mp3` (Pablo Alborán).
-- Renombralo exactamente `song.mp3`.
-- Ponelo en la misma carpeta que `index.html`.
-- Subilo al repositorio junto con los demás archivos.
-
-> Si la canción tiene otro nombre de archivo, abrí `index.html` y buscá la línea:
-> ```html
-> <source src="song.mp3" type="audio/mpeg" />
-> ```
-> Cambiá `song.mp3` por el nombre real de tu archivo.
+Renombrar el archivo de audio a `song.mp3` y subirlo junto con los demás archivos. Cualquier `.mp3` con ese nombre funciona.
 
 ---
 
 ## Personalización
 
-### Cambiar el nombre
+### Nombre en la pantalla de bienvenida
+En `index.html`, buscar `Abi` — aparece en dos lugares: el subtítulo y el nombre grande.
 
-Abrí `index.html` y buscá (Ctrl+F) el texto `Abi`.  
-Aparece en dos lugares: el subtítulo y el nombre grande. Cambialo por el nombre que quieras.
+### Letra y tiempos del karaoke
+En `index.html`, cada línea tiene un `data-time` en segundos desde el inicio de la canción:
+```html
+<div class="lyric-line" data-time="18">Texto de la línea</div>
+```
+Reproducir la canción, anotar en qué segundo empieza cada verso, y actualizar los valores.
 
-### Ajustar la letra (tiempos del karaoke)
-
-Los tiempos de cada línea están en `index.html`, en los atributos `data-time` de cada `<div class="lyric-line">`.  
-El valor es en **segundos** desde el inicio de la canción.  
-Reproducí la canción y anotá en qué segundo empieza cada línea, luego actualizá los valores.
-
-### Cambiar número de lirios
-
-En `script.js`, cambiá la línea:
+### Número de lirios
+En `script.js`, línea 1:
 ```js
-const LILY_COUNT = 7; // podés poner entre 1 y 7
+const LILY_COUNT = 9; // entre 1 y 11
 ```
 
-### Cambiar velocidad de crecimiento
-
-En `script.js`:
+### Velocidad de crecimiento
+En `script.js`, línea 2:
 ```js
-const GROW_BASE_DUR = 3.2; // segundos — más alto = más lento
+const GROW_BASE_DUR = 3.4; // segundos — más alto = más lento
 ```
+
+### Velocidad y suavidad del karaoke
+En `style.css`, regla `.lyric-line`:
+```css
+transition: opacity 0.8s ease, transform 0.8s ease;
+```
+Ajustar `0.8s` a gusto.
+
+### Estrellas fugaces
+En `script.js`, dentro de `shootingStar()`:
+- Brillo: `0.55` en `rgba(255,255,255,0.55)`
+- Longitud: `80 + Math.random() * 120`
+- Frecuencia: los valores en `setTimeout` (en milisegundos)
 
 ---
 
 ## Compatibilidad
 
-- Funciona en Chrome, Firefox, Safari, Edge (desktop y móvil).
-- No requiere instalaciones ni dependencias externas.
-- El audio se reproduce automáticamente al hacer click en el botón de bienvenida (gesto del usuario requerido por el navegador).
-
----
-
-*Hecho con HTML, CSS y JS puro. Sin frameworks, sin videos, sin dependencias.*
+Funciona en Chrome, Firefox, Safari y Edge, desktop y móvil. Sin frameworks ni dependencias externas.
