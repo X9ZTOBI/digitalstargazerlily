@@ -110,11 +110,12 @@ html, body { width: 100%; height: 100%; overflow: hidden; }
   100% { transform: translateX(-50%) rotate(var(--lean, 0deg)); }
 }
 
-/* Apertura de pétalos */
+/* Apertura de pétalos — la rotación la hace el <g> padre en SVG,
+   aquí solo animamos scale desde el centro de la flor */
 @keyframes petalOpen {
-  0%   { opacity: 0; transform: rotate(var(--rot, 0deg)) scale(0.04); }
-  25%  { opacity: 0.8; }
-  100% { opacity: 1;   transform: rotate(var(--rot, 0deg)) scale(1); }
+  0%   { opacity: 0; transform: scale(0.04); }
+  25%  { opacity: 0.85; }
+  100% { opacity: 1;   transform: scale(1); }
 }
 
 /* Aparición de estambres */
@@ -139,7 +140,7 @@ html, body { width: 100%; height: 100%; overflow: hidden; }
   font-weight: 300; font-style: italic;
   color: var(--lyric-color); letter-spacing: 0.04em;
   opacity: 0; transform: translateY(10px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
+  transition: opacity 0.7s ease, transform 0.7s ease;
   text-shadow: 0 0 24px var(--lyric-glow), 0 0 50px rgba(200,50,70,0.1);
 }
 .lyric-line.active { opacity: 1; transform: translateY(0); }

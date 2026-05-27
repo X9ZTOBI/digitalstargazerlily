@@ -227,28 +227,33 @@ function buildStargazerSVG(totalHeight, scale) {
     const stripeW = thisPWid * 0.22;
     const stripePath = petalPath(cx, headY, thisPLen * 0.88, stripeW);
 
-    // Grupo con rotación alrededor del centro de la flor
-    svg += `
-    <g style="
-      transform-origin: ${cx}px ${headY}px;
-      transform: rotate(${angle}deg);
-      opacity: 0;
-      animation: petalOpen 1.4s cubic-bezier(0.34,1.1,0.64,1) ${delay}s forwards;
-    ">
-      <path d="${path}" fill="url(#pg${i})" stroke="${C.petalEdge}" stroke-width="${0.6*scale}" stroke-opacity="0.5"/>
-      <path d="${stripePath}" fill="url(#stripe${i})" stroke="none"/>`;
-
-    // Motas oscuras (5-7 puntos irregulares en la mitad inferior del pétalo)
+    // Motas
+    let spots = '';
     const spotCount = 5 + Math.floor(Math.abs(Math.sin(i * 1.7)) * 4);
     for (let s = 0; s < spotCount; s++) {
       const t  = 0.15 + (s / spotCount) * 0.55;
       const sy = headY - thisPLen * t;
       const sx = cx + (Math.sin(s * 2.3 + i * 1.1) * thisPWid * 0.28);
       const sr = (1.1 + Math.sin(s * 3.1) * 0.5) * scale;
-      svg += `<ellipse cx="${sx.toFixed(1)}" cy="${sy.toFixed(1)}" rx="${sr.toFixed(1)}" ry="${(sr*0.75).toFixed(1)}" fill="${C.spot}" opacity="0.75"/>`;
+      spots += `<ellipse cx="${sx.toFixed(1)}" cy="${sy.toFixed(1)}" rx="${sr.toFixed(1)}" ry="${(sr*0.75).toFixed(1)}" fill="${C.spot}" opacity="0.75"/>`;
     }
 
-    svg += `</g>`;
+    // Dos grupos anidados:
+    // - externo: mantiene la rotación fija (no se anima)
+    // - interno: anima SOLO el scale desde el centro de la flor
+    svg += `
+    <g transform="rotate(${angle}, ${cx}, ${headY})">
+      <g style="
+        transform-origin: ${cx}px ${headY}px;
+        transform: scale(0.04);
+        opacity: 0;
+        animation: petalOpen 1.4s cubic-bezier(0.34,1.1,0.64,1) ${delay}s forwards;
+      ">
+        <path d="${path}" fill="url(#pg${i})" stroke="${C.petalEdge}" stroke-width="${0.6*scale}" stroke-opacity="0.5"/>
+        <path d="${stripePath}" fill="url(#stripe${i})" stroke="none"/>
+        ${spots}
+      </g>
+    </g>`;
   });
 
   // ── ESTAMBRES (6 largos y curvos) ──
