@@ -35,7 +35,7 @@ Renombrar el archivo de audio a `song.mp3` y subirlo junto con los demás archiv
 ## Personalización
 
 ### Nombre en la pantalla de bienvenida
-En `index.html`, buscar `Abi` — aparece en dos lugares: el subtítulo y el nombre grande.
+En `index.html`, buscar `...` — aparece en dos lugares: el subtítulo y el nombre grande.
 
 ### Letra y tiempos del karaoke
 En `index.html`, cada línea tiene un `data-time` en segundos desde el inicio de la canción:
