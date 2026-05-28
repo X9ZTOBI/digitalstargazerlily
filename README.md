@@ -1,4 +1,4 @@
-# 🌸 Flores para Abi
+# 🌸 Flores para regalar
 
 Regalo digital: lirios Stargazer animados sobre un cielo nocturno estrellado, con karaoke sincronizado y estrellas fugaces.
 
