@@ -408,7 +408,7 @@ function comenzar() {
   document.querySelectorAll('.lily').forEach(l => l.classList.add('bloom'));
 
   audio.currentTime = 0;
-  audio.volume = 0.5;   // 0.0 (silencio) → 1.0 (máximo) — ajustar a gusto
+  audio.volume = 0.4;   // 0.0 (silencio) → 1.0 (máximo) — ajustar a gusto
   audio.play().catch(() => {});
 }
 
