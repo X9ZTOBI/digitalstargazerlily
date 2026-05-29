@@ -93,7 +93,7 @@ function initStars() {
       const grad = ctx.createLinearGradient(x1, y1, x2, y2);
       const head = Math.min(progress + 0.12, 1);
       grad.addColorStop(Math.max(0, progress - 0.05), 'rgba(255,255,255,0)');
-      grad.addColorStop(progress, 'rgba(255,255,255,0.55)');
+      grad.addColorStop(progress, 'rgba(255,255,255,0.75)');
       grad.addColorStop(head, 'rgba(255,255,255,0)');
       ctx.strokeStyle = grad;
       ctx.lineWidth = 0.8;
