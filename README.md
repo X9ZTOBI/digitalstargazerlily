@@ -7,7 +7,7 @@ Regalo digital: lirios Stargazer animados sobre un cielo nocturno estrellado, co
 ## Estructura
 
 ```
-flores-para-abi/
+flores-para-regalar/
 ├── index.html
 ├── style.css
 ├── script.js
